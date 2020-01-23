@@ -47,6 +47,7 @@ drivers = ['af_packet',
 	'vhost',
 	'virtio',
 	'vmxnet3',
+    'qdma',
 ]
 std_deps = ['ethdev', 'kvargs'] # 'ethdev' also pulls in mbuf, net, eal etc
 std_deps += ['bus_pci']         # very many PMDs depend on PCI, so make std

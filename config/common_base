@@ -1067,3 +1067,11 @@ CONFIG_RTE_APP_CRYPTO_PERF=y
 # Compile the eventdev application
 #
 CONFIG_RTE_APP_EVENTDEV=y
+
+#
+#Complie Xilinx QDMA PMD driver
+#
+CONFIG_RTE_LIBRTE_QDMA_PMD=y
+# To enable driver debug logs, set to y
+CONFIG_RTE_LIBRTE_QDMA_DEBUG_DRIVER=y
+

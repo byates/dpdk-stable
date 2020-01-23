@@ -327,6 +327,8 @@ _LDLIBS-$(CONFIG_RTE_LIBRTE_PMD_NTB_RAWDEV) += -lrte_rawdev_ntb
 _LDLIBS-$(CONFIG_RTE_LIBRTE_PMD_OCTEONTX2_DMA_RAWDEV) += -lrte_rawdev_octeontx2_dma
 endif # CONFIG_RTE_LIBRTE_RAWDEV
 
+_LDLIBS-$(CONFIG_RTE_LIBRTE_QDMA_PMD) += -lrte_pmd_qdma
+
 endif # !CONFIG_RTE_BUILD_SHARED_LIBS
 
 _LDLIBS-y += --no-whole-archive
