@@ -113,7 +113,7 @@ eal_create_runtime_dir(void)
 	char tmp[PATH_MAX];
 	int ret;
 
-	if (getuid() != 0) {
+	if (getuid() != 0 && 0) {
 		/* try XDG path first, fall back to /tmp */
 		if (xdg_runtime_dir != NULL)
 			directory = xdg_runtime_dir;
@@ -138,14 +138,15 @@ eal_create_runtime_dir(void)
 	/* create the path if it doesn't exist. no "mkdir -p" here, so do it
 	 * step by step.
 	 */
-	ret = mkdir(tmp, 0700);
+	// JBY: changed permissions
+	ret = mkdir(tmp, 0777);
 	if (ret < 0 && errno != EEXIST) {
 		RTE_LOG(ERR, EAL, "Error creating '%s': %s\n",
 			tmp, strerror(errno));
 		return -1;
 	}
-
-	ret = mkdir(runtime_dir, 0700);
+	// JBY: changed permissions
+	ret = mkdir(runtime_dir, 0777);
 	if (ret < 0 && errno != EEXIST) {
 		RTE_LOG(ERR, EAL, "Error creating '%s': %s\n",
 			runtime_dir, strerror(errno));
@@ -324,7 +325,8 @@ rte_eal_config_create(void)
 		rte_mem_cfg_addr = NULL;
 
 	if (mem_cfg_fd < 0){
-		mem_cfg_fd = open(pathname, O_RDWR | O_CREAT, 0600);
+		// JBY: Changed to add group permissions
+		mem_cfg_fd = open(pathname, O_RDWR | O_CREAT, 0666);
 		if (mem_cfg_fd < 0) {
 			RTE_LOG(ERR, EAL, "Cannot open '%s' for rte_mem_config\n",
 				pathname);
@@ -1273,11 +1275,14 @@ rte_eal_init(int argc, char **argv)
 	}
 
 	/* Probe all the buses and devices/drivers on them */
-	if (rte_bus_probe()) {
+	RTE_LOG(INFO, EAL, "JBY-rte_bus_probe() started\n");
+	if (rte_bus_probe())
+	{
 		rte_eal_init_alert("Cannot probe devices");
 		rte_errno = ENOTSUP;
 		return -1;
 	}
+	RTE_LOG(INFO, EAL, "JBY-rte_bus_probe done\n");
 
 #ifdef VFIO_PRESENT
 	/* Register mp action after probe() so that we got enough info */

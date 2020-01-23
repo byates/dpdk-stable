@@ -314,7 +314,8 @@ map_all_hugepages(struct hugepage_file *hugepg_tbl, struct hugepage_info *hpi,
 		hf->filepath[sizeof(hf->filepath) - 1] = '\0';
 
 		/* try to create hugepage file */
-		fd = open(hf->filepath, O_CREAT | O_RDWR, 0600);
+		// JBY: Changed to add group permissions
+		fd = open(hf->filepath, O_CREAT | O_RDWR, 0666);
 		if (fd < 0) {
 			RTE_LOG(DEBUG, EAL, "%s(): open failed: %s\n", __func__,
 					strerror(errno));
@@ -516,7 +517,8 @@ create_shared_memory(const char *filename, const size_t mem_size)
 		return retval;
 	}
 
-	fd = open(filename, O_CREAT | O_RDWR, 0600);
+	// JBY: Changed to add group permissions
+	fd = open(filename, O_CREAT | O_RDWR, 0666);
 	if (fd < 0)
 		return NULL;
 	if (ftruncate(fd, mem_size) < 0) {

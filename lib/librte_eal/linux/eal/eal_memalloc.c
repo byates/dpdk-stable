@@ -303,7 +303,8 @@ get_seg_fd(char *path, int buflen, struct hugepage_info *hi,
 		fd = fd_list[list_idx].memseg_list_fd;
 
 		if (fd < 0) {
-			fd = open(path, O_CREAT | O_RDWR, 0600);
+			// JBY: Changed to add group permissions
+			fd = open(path, O_CREAT | O_RDWR, 0666);
 			if (fd < 0) {
 				RTE_LOG(ERR, EAL, "%s(): open failed: %s\n",
 					__func__, strerror(errno));
@@ -326,7 +327,8 @@ get_seg_fd(char *path, int buflen, struct hugepage_info *hi,
 		fd = fd_list[list_idx].fds[seg_idx];
 
 		if (fd < 0) {
-			fd = open(path, O_CREAT | O_RDWR, 0600);
+			// JBY: Changed to add group permissions
+			fd = open(path, O_CREAT | O_RDWR, 0666);
 			if (fd < 0) {
 				RTE_LOG(DEBUG, EAL, "%s(): open failed: %s\n",
 					__func__, strerror(errno));
