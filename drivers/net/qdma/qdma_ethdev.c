@@ -243,6 +243,11 @@ static struct rte_pci_id qdma_pci_id_tbl[] = {
 	RTE_PCI_DEV_ID_DECL_XNIC(PCI_VENDOR_ID_XILINX, 0xb248)	/** PF 2 */
 	RTE_PCI_DEV_ID_DECL_XNIC(PCI_VENDOR_ID_XILINX, 0xb348)	/** PF 3 */
 
+    // ----------------------------------------------------------------
+    // HELLASTORM
+    //
+    RTE_PCI_DEV_ID_DECL_XNIC(0x1C7D, 0x903f)  /** PF 0 */
+
 	{ .vendor_id = 0, /* sentinel */ },
 };
 
